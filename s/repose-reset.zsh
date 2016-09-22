@@ -35,16 +35,22 @@ Remove stray repositories, add missing ones
 function $cmdname-main # {{{
 {
   local -a options; options=(
-    h help
-    n print
+    h   help
+    n   print
+    t=  tag=
   )
   local print
+  local -a tags; tags=(gm lt se up)
+  local -i first_tag=1
   local on oa
   local -i oi=0
   while haveopt oi on oa $=options -- "$@"; do
     case $on in
     h | help      ) display-help $on ;;
     n | print     ) print=print ;;
+    t | tag       ) (( first_tag )) && { first_tag=0; tags=() }
+                    tags+=($oa)
+                    ;;
     *             ) reject-misuse -$oa ;;
     esac
   done; shift $oi
@@ -84,7 +90,7 @@ function $cmdname-main # {{{
       [[ $rn == ${~${(j:|:)products}} ]] && continue
       o $print ssh -n -o BatchMode=yes $h zypper -n rr "${rhrepos[$rn]}"
     done
-    o repoq -A -a $arch -t gm -t up ${products/%:\*} \
+    o repoq -A -a $arch ${(s: :)tags/#/-t } ${products/%:\*} \
     | while read rn zcmd; do
         [[ $rn == "${(~@kj:|:)~rhrepos}" ]] && continue
         run-in $h $zcmd
