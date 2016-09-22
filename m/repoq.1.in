@@ -264,8 +264,14 @@ update repository with
 packages
 . It Li gm
 release repository
+. It Li lt
+.Em LTSS
+update repository
 . It Li nv
 Nvidia driver repository
+. It Li se
+.Em SECURITY
+update repository
 . It Li up
 update repository
 .El

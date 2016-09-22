@@ -49,7 +49,7 @@ sle-(live-patching|manager-tools|module(-[[:IDENT:]]##)##):12
 sle-module-pubcloud:11
   up $H/update/build-ncc.suse.de/SUSE/Updates/SLE-SERVER/11-PUBCLOUD/$A/update
 
-sle-qa:1<1->
+qa:1<1->
   gm $H/ibs/QA:/SLE${V/-}/standard/
   up $H/ibs/QA:/SLE${V/-}/update/
 
@@ -116,15 +116,15 @@ sles:12
 sles:11.[1-3]
   gm $H/update/zypp-patches.suse.de/$A/update/SLE-SERVER/$V-POOL/
   up $H/update/build-ncc.suse.de/SUSE/Updates/SLE-SERVER/$V/$A/update/
-  up $H/update/build-ncc.suse.de/SUSE/Updates/SLE-SERVER/${V/-*}-SECURITY/$A/update/
-  up $H/update/build-ncc.suse.de/SUSE/Updates/SLE-SERVER/$V-LTSS/$A/update/
+  se $H/update/build-ncc.suse.de/SUSE/Updates/SLE-SERVER/${V/-*}-SECURITY/$A/update/
+  lt $H/update/build-ncc.suse.de/SUSE/Updates/SLE-SERVER/$V-LTSS/$A/update/
   dg $H/update/zypp-patches.suse.de/$A/update/SLE-DEBUGINFO/$V-POOL/
   du $H/update/build-ncc.suse.de/SUSE/Updates/SLE-DEBUGINFO/$V/
 
 sles:11.4
   gm $H/update/zypp-patches.suse.de/$A/update/SLE-SERVER/$V-POOL/
   up $H/update/build-ncc.suse.de/SUSE/Updates/SLE-SERVER/$V/$A/update/
-  up $H/update/build-ncc.suse.de/SUSE/Updates/SLE-SERVER/${V/-*}-SECURITY/$A/update/
+  se $H/update/build-ncc.suse.de/SUSE/Updates/SLE-SERVER/${V/-*}-SECURITY/$A/update/
   dg $H/update/zypp-patches.suse.de/$A/update/SLE-DEBUGINFO/$V-POOL/
   du $H/update/build-ncc.suse.de/SUSE/Updates/SLE-DEBUGINFO/$V/
 
