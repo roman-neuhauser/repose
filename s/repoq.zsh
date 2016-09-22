@@ -162,8 +162,10 @@ function display-match # {{{
   local rname=$1:$v::$tag
   [[ -n $A ]] \
   || o complain 1 'no architecture requested'
+  local arflags=cfgkn
+  [[ $tag == (gm|dg) ]] && arflags=${arflags/f}
   case $o_zypper in
-  ar) print ${o_named:+$rname} zypper -n $o_zypper -cgkn $rname ${(e)url} $rname
+  ar) print ${o_named:+$rname} zypper -n $o_zypper -$arflags $rname ${(e)url} $rname
   ;;
   rr) print ${o_named:+$rname} zypper -n $o_zypper ${(e)url}
   ;;
