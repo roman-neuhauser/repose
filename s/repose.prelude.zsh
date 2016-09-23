@@ -101,7 +101,8 @@ function main-add-install # {{{
   (( $#patts )) || reject-misuse
 
   local -a parts
-  local arch basev arg h rn zcmd
+  local arch basev arg h rn zcmd tmpf=$(mktemp)
+  trap "o rm -f $tmpf"
   for h in $hosts; do
     o rh-get-arch-basev $h \
     | read arch basev
@@ -111,10 +112,11 @@ function main-add-install # {{{
       parts=("${(@)parts[1,4]}")
       [[ $parts[2] == (|'*') ]] \
       && parts[2]=$basev
-      o repoq -A -a $arch ${(s: :)tags/#/-t }  "${${(@j.:.)parts}%%:##}" \
-      | while read rn zcmd; do
-          o $print ssh -n -o BatchMode=yes $h $zcmd
-        done
+      o truncate -s 0 $tmpf
+      o redir -1 $tmpf repoq -A -a $arch ${(s: :)tags/#/-t } "${${(@j.:.)parts}%%:##}"
+      while read rn zcmd; do
+        o $print ssh -n -o BatchMode=yes $h $zcmd
+      done < $tmpf
       if (( DO_INSTALL )); then
         o $print ssh -n -o BatchMode=yes $h "zypper -n --gpg-auto-import-keys in -l ${parts[1]}-release"
       fi

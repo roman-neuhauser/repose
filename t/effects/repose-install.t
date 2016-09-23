@@ -81,6 +81,14 @@ test that tag negation means "all tags but these"::
   ssh -n -o BatchMode=yes fubar.example.org zypper -n ar -cfgkn sled:12::at http://www2.ati.com/suse/sle12/ sled:12::at
   ssh -n -o BatchMode=yes fubar.example.org zypper -n --gpg-auto-import-keys in -l sled-release
 
+
+test case-mismatch::
+
+  $ repose install -n fubar.example.org -- sle-module-Web-Scripting
+  repoq: no rule matches 'sle-module-Web-Scripting:12'
+  [1]
+
+
 test::
 
   $ repose install -n {snafu,fubar}.example.org -- sle-module-legacy:12 sle-sdk:12
