@@ -258,6 +258,11 @@ ATI/AMD driver repository
 release repository with
 .Em -debuginfo , -debugsource
 packages
+. It Li dl
+.Em LTSS
+update repository with
+.Em -debuginfo , -debugsource
+packages
 . It Li du
 update repository with
 .Em -debuginfo , -debugsource
